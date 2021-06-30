@@ -1,3 +1,5 @@
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 import { ContactService } from './contact.service';
 import { Contact } from './contact.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,7 +8,13 @@ import { ContactController } from './contact.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Contact])],
-  providers: [ContactService],
-  controllers: [ContactController]
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    ContactService,
+  ],
+  controllers: [ContactController],
 })
 export class ContactModule {}

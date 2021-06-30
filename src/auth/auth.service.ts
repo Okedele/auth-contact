@@ -1,3 +1,4 @@
+import { IUser } from './../interfaces/user.interface';
 import { User } from './../users/users.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
@@ -11,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser(username: string, pass: string): Promise<IUser> {
     const user = await this.usersService.findOne(username);
     if (user) {
       const salt = await bcrypt.genSalt();

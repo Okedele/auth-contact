@@ -1,3 +1,4 @@
+import { Public } from './public-auth';
 import { IAuthenticatedReq } from './../interfaces/authenticated.interface';
 import { IResponse } from './../interfaces/response.interface';
 import { UsersService } from '../users/users.service';
@@ -25,7 +26,8 @@ export class AuthController {
   ) {}
 
   @Post('/register')
-  async registerUser(@Body() createUserDTO: CreateUserDto): Promise<any> {
+  @Public()
+  async registerUser(@Body() createUserDTO: CreateUserDto): Promise<IResponse> {
     const user = await this.usersService.registerUser(createUserDTO);
     const { password, ...result } = user;
     return {
@@ -36,6 +38,7 @@ export class AuthController {
   }
 
   @UseGuards(LocalAuthGuard)
+  @Public()
   @Post('/login')
   async login(
     @Request() req: IAuthenticatedReq,
