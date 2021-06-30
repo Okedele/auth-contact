@@ -1,24 +1,19 @@
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-  } from 'typeorm';
-  
-  @Entity()
-  export class Contact {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
-    @Column()
-    name: string;
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-    @Column()
-    address: string
-  
-    @Column()
-    email: string;
+@Entity()
+export class Contact {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    phone: string
-  }
-  
+  @Column()
+  name: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+}

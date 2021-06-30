@@ -30,6 +30,9 @@ export class ContactService {
 
   async editContact(contactDTO: CreateContactDto, id: number): Promise<Contact> {
     let contact = await this.contactRepository.findOne({ id });
+    if (!contact) {
+      throw new HttpException('Contact not found', HttpStatus.NOT_FOUND);
+    }
     contact.name = contactDTO.name;
     contact.address = contactDTO.address;
     contact.email = contactDTO.email;
