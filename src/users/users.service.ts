@@ -27,8 +27,6 @@ export class UsersService {
       email: createUserDTO.email,
       password: password,
     });
-    const isMatch = await bcrypt.compare(createUserDTO.password, password);
-    console.log(isMatch);
     return this.userRepository.save(user);
   }
 }
