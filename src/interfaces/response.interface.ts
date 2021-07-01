@@ -1,5 +1,5 @@
 export interface IResponse {
     status: string;
     message: string;
-    data?: Record<string, any> | string | null;
+    data: Record<string, any> | string | null;
 }

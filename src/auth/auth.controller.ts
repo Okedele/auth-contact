@@ -40,9 +40,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Public()
   @Post('/login')
-  async login(
-    @Request() req: IAuthenticatedReq,
-  ): Promise<IResponse> {
+  async login(@Request() req: IAuthenticatedReq): Promise<IResponse> {
     const user = req.user;
     const token = await this.authService.login(user);
     return {
@@ -56,8 +54,9 @@ export class AuthController {
   @Post('/logout')
   async logout(@Request() req: IAuthenticatedReq): Promise<IResponse> {
     return {
-        status: 'success',
-        message: 'User logged out successfully'
-      };
+      status: 'success',
+      message: 'User logged out successfully',
+      data: null,
+    };
   }
 }

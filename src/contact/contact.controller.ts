@@ -58,13 +58,18 @@ export class ContactController {
     const edit_contact = await this.contactService.editContact(contactDTO, id);
     return {
       status: 'success',
-      message: 'Contact edited successfully'
+      message: 'Contact edited successfully',
+      data: null,
     };
   }
 
   @Delete('/:id')
   async deleteContact(@Param('id') id: number): Promise<IResponse> {
     await this.contactService.deleteContact(id);
-    return { status: 'success', message: 'Contact deleted successfully' };
+    return {
+      status: 'success',
+      message: 'Contact deleted successfully',
+      data: null,
+    };
   }
 }

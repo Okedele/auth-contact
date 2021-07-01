@@ -12,7 +12,7 @@ export class ContactService {
   ) {}
 
   async create(createContactDTO: CreateContactDto): Promise<Contact> {
-    const contact = await this.contactRepository.create(createContactDTO);
+    const contact = this.contactRepository.create(createContactDTO);
     return this.contactRepository.save(contact);
   }
 
@@ -28,16 +28,17 @@ export class ContactService {
     return contact;
   }
 
-  async editContact(contactDTO: CreateContactDto, id: number): Promise<Contact> {
+  async editContact(
+    contactDTO: CreateContactDto,
+    id: number,
+  ): Promise<Contact> {
     let contact = await this.contactRepository.findOne({ id });
     if (!contact) {
       throw new HttpException('Contact not found', HttpStatus.NOT_FOUND);
     }
-    contact.name = contactDTO.name;
-    contact.address = contactDTO.address;
-    contact.email = contactDTO.email;
-    contact.phone = contactDTO.phone;
-    return await this.contactRepository.save(contact);
+    await this.contactRepository.update({ id }, contactDTO);
+
+    return this.findOne(id);
   }
 
   async deleteContact(id: number) {

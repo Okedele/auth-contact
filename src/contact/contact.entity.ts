@@ -16,4 +16,7 @@ export class Contact {
 
   @Column()
   phone: string;
+
+  
+  // createdBy... point to user
 }
