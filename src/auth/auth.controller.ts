@@ -30,10 +30,11 @@ export class AuthController {
   async registerUser(@Body() createUserDTO: CreateUserDto): Promise<IResponse> {
     const user = await this.usersService.registerUser(createUserDTO);
     const { password, ...result } = user;
+    const token = await this.authService.login(user);
     return {
       status: 'success',
       message: 'User registered successfully',
-      data: result,
+      data: { result, token },
     };
   }
 
